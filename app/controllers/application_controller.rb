@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
     before_action :authorized
-    
-    def encoded_token(payload)
+
+    def encode_token(payload)
         # change sercret key
         JWT.encode(payload, "temp_secret")
     end
