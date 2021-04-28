@@ -27,11 +27,12 @@ ActiveRecord::Schema.define(version: 2021_04_26_215535) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "password_digest"
-    t.boolean "admin"
     t.string "github_username"
     t.string "avatar"
+    t.string "email"
+    t.string "jwt_token"
+    t.boolean "admin", default: false
+    t.integer "score"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

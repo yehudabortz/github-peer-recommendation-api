@@ -57,3 +57,5 @@ gem "pry", "~> 0.14.1"
 gem "rest-client", "~> 2.1"
 
 gem "httparty", "~> 0.18.1"
+
+gem "octokit", "~> 4.21"

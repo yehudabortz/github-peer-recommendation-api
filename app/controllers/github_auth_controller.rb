@@ -11,13 +11,16 @@ class GithubAuthController < ApplicationController
     def create_user_from_github(token)
       client = Octokit::Client.new(:access_token => token)
       user = User.find_by(github_username: client.user.login)
-      if user
-            render json: {user: user}
-          else
+        if user
+            user.jwt_token = encode_token(user.id)
+            render json: UserSerializer.new(user).base_user_json
+        else
             user = User.create(github_username: client.user.login, avatar: client.user.avatar_url)
-            render json: {user: user}
-      end
+            user.jwt_token = encode_token(user.id)
+            render json: UserSerializer.new(user).base_user_json
+        end
     end
+
 
     private
     
