@@ -49,3 +49,11 @@ gem "omniauth-rails_csrf_protection", "~> 1.0"
 
 gem "rails-pry", "~> 0.0.1"
 
+
+gem "rack-cors", "~> 1.1"
+
+gem "pry", "~> 0.14.1"
+
+gem "rest-client", "~> 2.1"
+
+gem "httparty", "~> 0.18.1"
