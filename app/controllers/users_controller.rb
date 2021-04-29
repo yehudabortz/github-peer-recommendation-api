@@ -1,23 +1,20 @@
 class UsersController < ApplicationController
-before_action :authorized, only: [:auto_login]
 
-  # REGISTER
-  def create
-    @user = User.create(user_params)
-    if @user.valid?
-      token = encode_token({user_id: @user.id})
-      render json: {user: @user, token: token}
-    else
-      render json: {error: "Invalid username or password"}
-    end
-  end
+def show
+  binding.pry
+end
+
+def current_user_account
+  render json: UserSerializer.new(current_user).base_user_profile, status: :created
+end
 
 
-  private
+private
 
-  def user_params
-    params.permit(:email, :password)
-  end
+def user_params
+  binding.pry
+    params.permit(:id, :password)
+end
 
 
 end
