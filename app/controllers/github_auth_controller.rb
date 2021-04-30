@@ -3,8 +3,8 @@ class GithubAuthController < ApplicationController
 
     def github_callback    
 
+
       response = HTTParty.get("https://github.com/login/oauth/access_token?client_id=#{ENV['GITHUB_CLIENT_ID']}&redirect_uri=#{ENV['REDIRECT_URI']}&client_secret=#{ENV['GITHUB_CLIENT_SECRET']}&code=#{github_params[:code]}")
-    #   binding.pry
       token = response.split('access_token=')[1].split('&scope')[0]
       create_user_from_github(token)
     end
