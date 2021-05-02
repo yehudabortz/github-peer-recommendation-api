@@ -58,3 +58,7 @@ gem "rest-client", "~> 2.1"
 gem "httparty", "~> 0.18.1"
 
 gem "octokit", "~> 4.21"
+
+gem "sendgrid-ruby", "~> 6.4"
+
+gem "sendgrid-actionmailer", "~> 3.2"

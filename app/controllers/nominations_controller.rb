@@ -9,10 +9,12 @@ class NominationsController < ApplicationController
         nomination = Nomination.new()
         nomination.nominator = current_user
         nomination.nominated = nominated
+
         if  !current_user.outbound_nominations.where(nominated_id: nominated.id).empty?
             render json: {message: "Unable to nominate user"}
         else
             nomination.save
+            UserInviteMailer.send_signup_email(nominated).deliver
             render json: {user: nominated}
         end
     end
@@ -28,4 +30,5 @@ class NominationsController < ApplicationController
     def nomination_params 
         params.require(:nomination).permit(:github_username, :avatar, :email)
     end
+
 end
