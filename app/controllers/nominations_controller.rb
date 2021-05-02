@@ -4,6 +4,7 @@ class NominationsController < ApplicationController
         nominated = User.where(github_username: nomination_params[:github_username]).first_or_create do |nominated|
             nominated.github_username = nomination_params[:github_username]
             nominated.avatar = nomination_params[:avatar]
+            nominated.email = nomination_params[:email]
         end
         nomination = Nomination.new()
         nomination.nominator = current_user
@@ -25,6 +26,6 @@ class NominationsController < ApplicationController
     private
 
     def nomination_params 
-        params.require(:nomination).permit(:github_username, :avatar)
+        params.require(:nomination).permit(:github_username, :avatar, :email)
     end
 end
