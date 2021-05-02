@@ -5,7 +5,7 @@ def show
 end
 
 def current_user_account
-  render json: UserSerializer.new(current_user).base_user_profile, status: :created
+  render json: {user: current_user, nominated_users: current_user.find_nominated_users}, status: :created
 end
 
 
