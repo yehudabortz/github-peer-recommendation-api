@@ -27,12 +27,19 @@ class NominationsController < ApplicationController
     end
 
     def update
+        nominations = current_user.outbound_nominations.map do |nom|
+            nom if nom.nominated.id == nomination_params[:user_id]
+        end
+        nominations.compact.each do |nom|
+            nom.active = false
+            nom.save
+        end
     end
 
     private
 
     def nomination_params 
-        params.require(:nomination).permit(:github_username, :avatar, :email)
+        params.require(:nomination).permit(:github_username, :avatar, :email, :user_id)
     end
 
 end

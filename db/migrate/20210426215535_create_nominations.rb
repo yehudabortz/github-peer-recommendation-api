@@ -5,6 +5,7 @@ class CreateNominations < ActiveRecord::Migration[6.1]
       t.references :nominated
       t.boolean :accepted, :default => false
       t.boolean :co_worker
+      t.boolean :active, :default => true
 
       t.timestamps
     end

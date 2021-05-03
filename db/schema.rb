@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2021_04_26_215535) do
     t.bigint "nominated_id"
     t.boolean "accepted", default: false
     t.boolean "co_worker"
+    t.boolean "active", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["nominated_id"], name: "index_nominations_on_nominated_id"
