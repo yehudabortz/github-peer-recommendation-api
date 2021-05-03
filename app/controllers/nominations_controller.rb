@@ -11,7 +11,11 @@ class NominationsController < ApplicationController
         nomination.nominated = nominated
 
         if  !current_user.outbound_nominations.where(nominated_id: nominated.id).empty?
+            # binding.pry
             render json: {message: "Unable to nominate user"}
+        elsif nominated.email.blank?
+            # binding.pry
+            render json: {message: "Email address required to nominated a user."}
         else
             nomination.save
             render json: {user: nominated}

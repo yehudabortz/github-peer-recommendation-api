@@ -9,7 +9,7 @@ class GithubAuthController < ApplicationController
     
     def create_user_from_github(token)
         client = Octokit::Client.new(:access_token => token)
-        @user = User.find_by(github_username: client.user.login)
+        @user = User.find_by(github_id: client.user.id)
         if @user
             if github_params[:nomination_id]
                 if check_invitation?
