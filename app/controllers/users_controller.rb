@@ -11,7 +11,6 @@ end
 private
 
 def user_params
-  binding.pry
     params.permit(:id, :password)
 end
 

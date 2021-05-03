@@ -1,5 +1,6 @@
 class GithubAuthController < ApplicationController
     skip_before_action :authorized
+    skip_before_action :verify_authenticity_token
 
     def github_callback   
         response = HTTParty.get("https://github.com/login/oauth/access_token?client_id=#{ENV['GITHUB_CLIENT_ID']}&redirect_uri=#{ENV['REDIRECT_URI']}&client_secret=#{ENV['GITHUB_CLIENT_SECRET']}&code=#{github_params[:code]}")
