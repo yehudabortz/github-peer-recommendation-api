@@ -1,6 +1,5 @@
 class GithubAuthController < ApplicationController
     skip_before_action :authorized
-    # skip_before_action :verify_authenticity_token
 
     def github_callback   
         response = HTTParty.get("https://github.com/login/oauth/access_token?client_id=#{ENV['GITHUB_CLIENT_ID']}&redirect_uri=#{ENV['REDIRECT_URI']}&client_secret=#{ENV['GITHUB_CLIENT_SECRET']}&code=#{github_params[:code]}")
@@ -38,14 +37,14 @@ class GithubAuthController < ApplicationController
     end
 
     def check_invitation?
-            nomination = Nomination.find_by(id: github_params[:nomination_id])
-            if nomination.nominated.github_id == @user.github_id && !nomination.accepted
-                nomination.accepted = true
-                nomination.save
-                true
-            else
-                false
-            end
+        nomination = Nomination.find_by(id: github_params[:nomination_id])
+        if nomination.nominated.github_id == @user.github_id && !nomination.accepted
+            nomination.accepted = true
+            nomination.save
+            true
+        else
+            false
+        end
     end
 end
 
