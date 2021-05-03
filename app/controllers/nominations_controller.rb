@@ -25,10 +25,6 @@ class NominationsController < ApplicationController
     def update
     end
 
-    def nomination_acceptance
-        binding.pry
-    end
-
     private
 
     def nomination_params 
