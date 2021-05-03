@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_04_26_215535) do
   create_table "nominations", force: :cascade do |t|
     t.bigint "nominator_id"
     t.bigint "nominated_id"
-    t.boolean "accepted"
+    t.boolean "accepted", default: false
     t.boolean "co_worker"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2021_04_26_215535) do
 
   create_table "users", force: :cascade do |t|
     t.string "github_username"
+    t.integer "github_id"
     t.string "avatar"
     t.string "email"
     t.string "jwt_token"

@@ -14,8 +14,8 @@ class NominationsController < ApplicationController
             render json: {message: "Unable to nominate user"}
         else
             nomination.save
-            UserInviteMailer.send_signup_email(nominated).deliver
             render json: {user: nominated}
+            UserInviteMailer.send_signup_email(nominated,  "#{ENV['DOMAIN']}/nominations/#{nomination.id}/invite").deliver_later
         end
     end
     
@@ -23,6 +23,10 @@ class NominationsController < ApplicationController
     end
 
     def update
+    end
+
+    def nomination_acceptance
+        binding.pry
     end
 
     private

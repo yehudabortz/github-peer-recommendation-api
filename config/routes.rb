@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   post '/auth/github_oauth2/callback', to: 'github_auth#github_callback'
 
   get '/search/github/users', to: 'github_search#search_users'
+
 end

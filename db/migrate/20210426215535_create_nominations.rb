@@ -3,7 +3,7 @@ class CreateNominations < ActiveRecord::Migration[6.1]
     create_table :nominations do |t|
       t.references :nominator
       t.references :nominated
-      t.boolean :accepted
+      t.boolean :accepted, :default => false
       t.boolean :co_worker
 
       t.timestamps

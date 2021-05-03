@@ -2,6 +2,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
   def change
     create_table :users do |t|
       t.string :github_username
+      t.integer :github_id
       t.string :avatar
       t.string :email
       t.string :jwt_token
