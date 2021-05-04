@@ -7,13 +7,10 @@ class NominationsController < ApplicationController
             nominated.avatar = nomination_params[:avatar]
             nominated.email = nomination_params[:email]
         end
-
-        if nominated.score.nil?
-            nominated.score = 1
-        else
-            nominated.score =+ 1
+        
+        if nominated.email.blank?
+            nominated.update(email: nomination_params[:email])
         end
-        nominated.save
 
         nomination = Nomination.new()
         nomination.nominator = current_user
