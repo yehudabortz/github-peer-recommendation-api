@@ -24,7 +24,7 @@ class NominationsController < ApplicationController
         else
             nomination.save
             render json: {user: nominated}
-            # UserInviteMailer.send_signup_email(nominated,  "#{ENV['DOMAIN']}/nominations/#{nomination.id}/invite").deliver_later
+            UserInviteMailer.send_signup_email(nominated,  "#{ENV['DOMAIN']}/nominations/#{nomination.id}/invite").deliver_later
         end
     end
     
