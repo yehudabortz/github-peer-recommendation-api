@@ -26,7 +26,13 @@ bundle install
 touch .env
 ```
 
-Create a new OAuth app in your GitHub account.
+- Create your app secret for decoding JWT tokens.
+
+```bash
+SECRET_KEY_BASE=YOUR VERY SECURE PASSWORD
+```
+
+- Create a new OAuth app in your GitHub account.
 
 - In the .env file create your environment variables for GitHub OAuth
 
