@@ -14,7 +14,7 @@ class GithubAuthController < ApplicationController
             if github_params[:nomination_id]
                 if check_invitation?
                     @user.jwt_token = encode_token({user_id: @user.id})
-                    render json: {user: @user, nominated_users: @user.find_nominated_users}, status: :created
+                    render json: {user: @user, nominated_users: @user.find_nominated_users, score: 1}, status: :created
                 else
                     render json: {message: "Nomination expired"}
                 end
