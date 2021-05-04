@@ -7,6 +7,14 @@ class NominationsController < ApplicationController
             nominated.avatar = nomination_params[:avatar]
             nominated.email = nomination_params[:email]
         end
+
+        if nominated.score.nil?
+            nominated.score = 1
+        else
+            nominated.score =+ 1
+        end
+        nominated.save
+
         nomination = Nomination.new()
         nomination.nominator = current_user
         nomination.nominated = nominated
@@ -19,7 +27,7 @@ class NominationsController < ApplicationController
         else
             nomination.save
             render json: {user: nominated}
-            UserInviteMailer.send_signup_email(nominated,  "#{ENV['DOMAIN']}/nominations/#{nomination.id}/invite").deliver_later
+            # UserInviteMailer.send_signup_email(nominated,  "#{ENV['DOMAIN']}/nominations/#{nomination.id}/invite").deliver_later
         end
     end
     
