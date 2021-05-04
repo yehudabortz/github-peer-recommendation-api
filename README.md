@@ -2,6 +2,8 @@
 
 GitHub Peer Recommendation allows GitHub users to nominate other GitHub users and vouch for their employability. Nominations are anonymous. Once nominated, the nominated user will receive an email invite to claim their profile if they are not already a member. Everyone receives a score based on how many people have nominated them.
 
+GitHub Peer Recommendation API is a Ruby on Rails back end for the [GitHub Peer Recommendation Client](https://github.com/yehudabortz/github-peer-recommendation-client) React front-end.
+
 ## Installation
 
 - Clone this repo.
