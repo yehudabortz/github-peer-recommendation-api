@@ -6,9 +6,10 @@ class GithubSearchController < ApplicationController
         # binding.pry
         # response = HTTParty.get("https://api.github.com/users/#{search_params[:q]}")
         # response = HTTParty.get("https://api.github.com/users/#{search_params[:q]}?client_id=#{ENV['GITHUB_CLIENT_ID']}&client_secret=#{ENV['GITHUB_CLIENT_SECRET']}")
+
         response = HTTParty.get("https://api.github.com/users/#{search_params[:q]}", 
             headers: {
-                access_token: ENV['GITHUB_ACCESS_TOKEN']
+                Authorization: "token #{ENV['GITHUB_ACCESS_TOKEN']}"
             }
         )
         # users = response["items"][0..10]
