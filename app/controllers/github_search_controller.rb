@@ -12,6 +12,12 @@ class GithubSearchController < ApplicationController
                 Authorization: "token #{ENV['GITHUB_ACCESS_TOKEN']}"
             }
         )
+                # GITHUB SEARCH API
+        # response = HTTParty.get("https://api.github.com/search/users?q=#{search_params[:q]}", 
+        #     headers: {
+        #         Authorization: "token #{ENV['GITHUB_ACCESS_TOKEN']}"
+        #     }
+        # )
         # users = response["items"][0..10]
         render :json => { user: response }
         # render :json => { users: users }
