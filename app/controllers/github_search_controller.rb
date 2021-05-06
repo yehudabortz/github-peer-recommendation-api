@@ -28,7 +28,6 @@ class GithubSearchController < ApplicationController
             # users = response["items"][0..10]
         render :json => { user: response }
         # render :json => { users: users }
-
         # client = Octokit::Client.new(:access_token => ENV['GITHUB_CLIENT_SECRET'])
     end
 
