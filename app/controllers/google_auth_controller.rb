@@ -15,6 +15,7 @@ class GoogleAuthController < ApplicationController
                 user.avatar = response["picture"]
                 user.jwt_token = encode_token({user_id: user.id})
             end
+            user.jwt_token = encode_token({user_id: user.id})
             render json: {user: user}
         else
             render json: {message: "Unable to login"}

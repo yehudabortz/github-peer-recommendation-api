@@ -13,20 +13,19 @@ class GithubSearchController < ApplicationController
         #         client_secret:ENV['GITHUB_CLIENT_SECRET']
         #     }
         # )
-binding.pry
         response = HTTParty.get("https://api.github.com/users/#{search_params[:q]}", 
             headers: {
                 Authorization: "token #{ENV['GITHUB_ACCESS_TOKEN']}"
             }
         )
-
+        
         # # GITHUB SEARCH API
         # response = HTTParty.get("https://api.github.com/search/users?q=#{search_params[:q]}", 
         #     headers: {
-        #         Authorization: "token #{ENV['GITHUB_ACCESS_TOKEN']}"
-        #     }
-        # )
-        # users = response["items"][0..10]
+            #         Authorization: "token #{ENV['GITHUB_ACCESS_TOKEN']}"
+            #     }
+            # )
+            # users = response["items"][0..10]
         render :json => { user: response }
         # render :json => { users: users }
 
