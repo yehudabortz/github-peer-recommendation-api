@@ -26,6 +26,10 @@ class ApplicationController < ActionController::API
             @user = User.find_by(id: user_id)
         end
     end
+
+    def admin?
+        !!current_user.admin
+    end
     
     def logged_in?
         !!current_user
