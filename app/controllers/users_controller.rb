@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def index
       if admin?
         page = user_params[:page].to_i
-        display_count = page + 10
+        display_count =  10
         offset = page * 10
         if user_params[:filter] && user_params[:condition]
           users = User.where("#{user_params[:filter]}": "#{user_params[:condition]}").offset(offset).limit(display_count)
