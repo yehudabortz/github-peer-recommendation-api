@@ -1,8 +1,15 @@
 class UsersController < ApplicationController
   def index
       if admin?
-          users = User.all
-          render json: users, include: [:outbound_nominations, :inbound_nominations]
+        page = user_params[:page].to_i
+        display_count = page + 10
+        offset = page * 10
+        if user_params[:filter] && user_params[:condition]
+          users = User.where("#{user_params[:filter]}": "#{user_params[:condition]}").offset(offset).limit(display_count)
+        else
+          users = User.offset(offset).limit(display_count)
+        end
+        render json: users, include: [:outbound_nominations, :inbound_nominations]
       end
     end
     
@@ -21,7 +28,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-      params.permit(:id, :password)
+      params.permit(:id, :password, :page, :filter, :condition)
   end
 
 
