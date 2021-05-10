@@ -4,12 +4,14 @@ class UsersController < ApplicationController
       page = user_params[:page].to_i
       display_count = user_params[:display_count]
       offset = page * 10
+      results_count = User.all.count
       if user_params[:filter] && user_params[:condition]
+        results_count = User.where("#{user_params[:filter]}": "#{user_params[:condition]}").count
         users = User.where("#{user_params[:filter]}": "#{user_params[:condition]}").offset(offset).limit(display_count)
       else
         users = User.offset(offset).limit(display_count)
       end
-      render json: users, include: [:outbound_nominations, :inbound_nominations]
+      render :json => {users: UserSearchSerializer.new(users).to_serialized_json, results_count: ResultsCountSerializer.new(results_count).to_serialized_json }
     end
   end
     
@@ -20,14 +22,6 @@ class UsersController < ApplicationController
     end
   end
       
-  def results_count
-    if admin?
-      results_count = User.all.count
-      render :json => {results_count: results_count}
-    end
-  end
-
-
   def current_user_account
     render json: {user: current_user, nominated_users: current_user.find_nominated_users, score: current_user.inbound_nominations.count}, status: :created
   end
