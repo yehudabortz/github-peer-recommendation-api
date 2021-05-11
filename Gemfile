@@ -66,3 +66,5 @@ gem "sendgrid-actionmailer", "~> 3.2"
 gem "omniauth-google-oauth2", "~> 1.0"
 
 gem "googleauth", "~> 0.16.2"
+
+gem "faker", "~> 2.17"
