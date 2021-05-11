@@ -7,9 +7,9 @@ class UsersController < ApplicationController
       results_count = User.all.count
       if user_params[:filter] && user_params[:condition]
         results_count = User.where("#{user_params[:filter]}": "#{user_params[:condition]}").count
-        users = User.where("#{user_params[:filter]}": "#{user_params[:condition]}").offset(offset).limit(display_count)
+        users = User.where("#{user_params[:filter]}": "#{user_params[:condition]}").offset(offset).limit(display_count).reverse_order
       else
-        users = User.offset(offset).limit(display_count)
+        users = User.offset(offset).limit(display_count).reverse_order
       end
       render :json => {users: UserSearchSerializer.new(users).to_serialized_json, results_count: ResultsCountSerializer.new(results_count).to_serialized_json }
     end
