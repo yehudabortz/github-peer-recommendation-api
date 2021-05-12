@@ -8,12 +8,13 @@ class NominationsController < ApplicationController
         nomination = Nomination.new
         nomination.nominator = current_user
         nomination.nominated = nominated
+        nomination.co_worker = nomination_params[:co_worker]
 
         if  !current_user.outbound_nominations.where(nominated_id: nominated.id).empty?
             render json: {message: "Unable to nominate user"}
         else
             nomination.save
-            render json: {user: nominated}
+            render json: {user: nominated, nomination: nomination}
             # UserInviteMailer.send_signup_email(nominated,  "#{ENV['DOMAIN']}/nominations/#{nomination.id}/invite").deliver_later
         end
     end
@@ -41,7 +42,7 @@ class NominationsController < ApplicationController
     private
 
     def nomination_params 
-        params.require(:nomination).permit(:linkedin_handle, :user_id)
+        params.require(:nomination).permit(:linkedin_handle, :co_worker, :user_id)
     end
 
 end
