@@ -6,31 +6,32 @@ class SearchController < ApplicationController
       display_count = search_params[:display_count]
       offset = page * display_count.to_i
       results_count = User.all.count
-
-      if search_params[:filter].values.any?  #&& search_params[:condition]
+      if search_params[:filter].values.compact.count >= 1  #&& search_params[:condition]
         # ITERATE THROUGH AND QUERY BASED ON EACH KEY VALUE
         filters = search_params[:filter].compact
         filter_keys = filters.keys
         filter_keys.each do |key|
-            value = search_params[:filter].values_at(key)[0]
+            @value = search_params[:filter].values_at(key)[0]
             case filter_keys.count
             when 1
                 case key
                 when "open_to_work"
-                    results_count = User.where("#{key}" => "#{value}").offset(offset).limit(display_count).count
-                    users = User.where("#{key}" => "#{value}").offset(offset).limit(display_count).reverse_order
+                    results_count = User.where("#{key}" => "#{@value}").offset(offset).limit(display_count).count
+                    users = User.where("#{key}" => "#{@value}").offset(offset).limit(display_count).reverse_order
                     break
                 when "inbound_nominations"
-                    results_count = User.find_most_inbound_nominations.count.count
-                    users = User.find_most_inbound_nominations.offset(offset).limit(display_count)
+                    convert_boolean_to_order_value
+                    results_count = User.order_by_inbound_nominations(@value).count.count
+                    users = User.order_by_inbound_nominations(@value).offset(offset).limit(display_count)
                     break
                     # binding.pry
                 end
             when 2
                 case key
                 when "open_to_work" || "inbound_nominations"
-                    results_count =  User.find_most_inbound_nominations.where("#{key}" => "#{value}").offset(offset).limit(display_count).count.count
-                    users = User.find_most_inbound_nominations.where("#{key}" => "#{value}").offset(offset).limit(display_count)
+                    convert_boolean_to_order_value
+                    results_count =  User.order_by_inbound_nominations(@value).where("#{key}" => "#{@value}").offset(offset).limit(display_count).count.count
+                    users = User.order_by_inbound_nominations(@value).where("#{key}" => "#{@value}").offset(offset).limit(display_count)
                     break
                 end
             end
@@ -54,6 +55,15 @@ class SearchController < ApplicationController
     end
   end
       
+
+  def convert_boolean_to_order_value
+    case @value
+    when true
+        @value = "DESC"
+    when false
+        @value = "ASC"
+    end
+  end
 
 
   private

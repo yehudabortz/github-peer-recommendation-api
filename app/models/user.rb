@@ -5,8 +5,8 @@ class User < ApplicationRecord
     # validates :github_id, uniqueness: { case_sensitive: false }
 
 
-    def self.find_most_inbound_nominations
-        User.joins(:inbound_nominations).group("users.id").order("count(nominated_id) DESC")
+    def self.order_by_inbound_nominations(order)
+        User.joins(:inbound_nominations).group("users.id").order("count(nominated_id) #{order}")
     end
 
     def find_nominated_users
