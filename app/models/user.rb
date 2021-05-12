@@ -8,10 +8,8 @@ class User < ApplicationRecord
     def self.order_by_inbound_nominations(order)
         User.joins(:inbound_nominations).group("users.id").order("count(nominated_id) #{order}")
     end
-
+    
     def find_nominated_users
-        Nomination.all.where(nominator_id: self.id, active: true).map do |nomination|
-            nomination.nominated
-        end
+        User.joins(:inbound_nominations).group("users.id").where("nominator_id = ? AND active = ?", self.id, true)
     end
 end
