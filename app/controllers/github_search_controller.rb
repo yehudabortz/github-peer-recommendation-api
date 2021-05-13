@@ -6,12 +6,23 @@ class GithubSearchController < ApplicationController
         # binding.pry
         # response = HTTParty.get("https://api.github.com/users/#{search_params[:q]}")
         # response = HTTParty.get("https://api.github.com/users/#{search_params[:q]}?client_id=#{ENV['GITHUB_CLIENT_ID']}&client_secret=#{ENV['GITHUB_CLIENT_SECRET']}")
+<<<<<<< HEAD
 
+=======
+        # response = HTTParty.get("https://api.github.com/users/#{search_params[:q]}?access_token=#{ENV['GITHUB_ACCESS_TOKEN']}")
+        # response = HTTParty.get("https://api.github.com/search/users", 
+        #     q: search_params[:q],
+        #     headers: {
+        #         client_secret:ENV['GITHUB_CLIENT_SECRET']
+        #     }
+        # )
+>>>>>>> google-auth
         response = HTTParty.get("https://api.github.com/users/#{search_params[:q]}", 
             headers: {
                 Authorization: "token #{ENV['GITHUB_ACCESS_TOKEN']}"
             }
         )
+<<<<<<< HEAD
                 # GITHUB SEARCH API
         # response = HTTParty.get("https://api.github.com/search/users?q=#{search_params[:q]}", 
         #     headers: {
@@ -19,9 +30,18 @@ class GithubSearchController < ApplicationController
         #     }
         # )
         # users = response["items"][0..10]
+=======
+        
+        # # GITHUB SEARCH API
+        # response = HTTParty.get("https://api.github.com/search/users?q=#{search_params[:q]}", 
+        #     headers: {
+            #         Authorization: "token #{ENV['GITHUB_ACCESS_TOKEN']}"
+            #     }
+            # )
+            # users = response["items"][0..10]
+>>>>>>> google-auth
         render :json => { user: response }
         # render :json => { users: users }
-
         # client = Octokit::Client.new(:access_token => ENV['GITHUB_CLIENT_SECRET'])
     end
 

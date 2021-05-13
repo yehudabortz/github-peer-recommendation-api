@@ -21,7 +21,7 @@ gem 'puma', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -40,11 +40,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "jwt", "~> 2.2"
 
-# gem "omniauth", "~> 2.0"
+gem "omniauth", "~> 2.0"
 
 gem "omniauth-github", "~> 2.0"
 
-gem "omniauth-rails_csrf_protection", "~> 1.0"
+gem "omniauth-rails_csrf_protection"
 
 gem "rails-pry", "~> 0.0.1"
 
@@ -62,3 +62,9 @@ gem "octokit", "~> 4.21"
 gem "sendgrid-ruby", "~> 6.4"
 
 gem "sendgrid-actionmailer", "~> 3.2"
+
+gem "omniauth-google-oauth2", "~> 1.0"
+
+gem "googleauth", "~> 0.16.2"
+
+gem "faker", "~> 2.17"

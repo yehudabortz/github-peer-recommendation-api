@@ -1,15 +1,25 @@
 class UsersController < ApplicationController
 
-def current_user_account
-  render json: {user: current_user, nominated_users: current_user.find_nominated_users, score: current_user.inbound_nominations.where(active: true).count}, status: :created
-end
+  def show
+    if admin?
+      user = User.find_by(id: user_params[:id])
+      render json: user, include: [:outbound_nominations, :inbound_nominations]
+    end
+  end
+      
+  def current_user_account
+    render json: {user: current_user, nominated_users: current_user.find_nominated_users,
+      co_worker_nominated_users: current_user.find_co_worker_nominated_users,
+      past_co_worker_nominated_users: current_user.find_past_co_worker_nominated_users,
+      score: current_user.inbound_nominations.count}, status: :created
+  end
 
 
-private
+  private
 
-def user_params
-    params.permit(:id, :password)
-end
+  def user_params
+      params.permit(:id)
+  end
 
 
 end
