@@ -8,10 +8,7 @@ class UsersController < ApplicationController
   end
       
   def current_user_account
-    render json: {user: current_user, nominated_users: current_user.find_nominated_users,
-      co_worker_nominated_users: current_user.find_co_worker_nominated_users,
-      past_co_worker_nominated_users: current_user.find_past_co_worker_nominated_users,
-      score: current_user.inbound_nominations.count}, status: :created
+     render json: UserSerializer.new(current_user).full_user_profile, status: :created
   end
 
 

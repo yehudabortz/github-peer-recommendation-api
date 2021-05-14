@@ -16,7 +16,7 @@ class GoogleAuthController < ApplicationController
                 user.jwt_token = encode_token({user_id: user.id})
             end
             user.jwt_token = encode_token({user_id: user.id})
-            render json: {user: user}
+            render json: UserSerializer.new(user).full_user_profile, status: :created
         else
             render json: {message: "Unable to login"}
         end

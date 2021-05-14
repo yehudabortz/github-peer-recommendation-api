@@ -23,4 +23,8 @@ class UserSerializer
             }
         ) 
     end
+
+    def full_user_profile
+        {user: @user, nominated_users: @user.find_nominated_users, co_worker_nominated_users: @user.find_co_worker_nominated_users, past_co_worker_nominated_users: @user.find_past_co_worker_nominated_users, score: @user.inbound_nominations.count}
+    end
 end
