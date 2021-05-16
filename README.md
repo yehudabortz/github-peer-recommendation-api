@@ -1,8 +1,8 @@
-# GitHub Peer Recommendation API
+# Peer Recommendation API
 
-GitHub Peer Recommendation allows GitHub users to nominate other GitHub users and vouch for their employability. Nominations are anonymous. Once nominated, the nominated user will receive an email invite to claim their profile if they are not already a member. Everyone receives a score based on how many people have nominated them.
+Peer Recommendation allows users to nominate current and past co-workers and vouch for their employability. Nominations are anonymous. Everyone receives a score based on how many people have nominated them.
 
-GitHub Peer Recommendation API is a Ruby on Rails back-end for the [GitHub Peer Recommendation Client](https://github.com/yehudabortz/github-peer-recommendation-client) React front-end.
+Peer Recommendation API is a Ruby on Rails back-end for the [Peer Recommendation Client](https://github.com/yehudabortz/github-peer-recommendation-client) React front-end.
 
 ## Installation
 
@@ -32,27 +32,13 @@ touch .env
 SECRET_KEY_BASE=YOUR VERY SECURE PASSWORD
 ```
 
-- Create a new OAuth app in your GitHub account.
+- Create a new OAuth app in your Google Developers account.
 
 - In the .env file create your environment variables for GitHub OAuth
 
 ```bash
-GITHUB_CLIENT_ID=USE YOUR GITHUB CLIENT ID
-GITHUB_CLIENT_SECRET=YOUR GITHUB CLIENT SECRET HERE
-```
-
-Create a new GitHub personal access token in your GitHub account.
-
-- In the .env file create your environment variables for GitHub access token.
-
-```bash
-GITHUB_ACCESS_TOKEN=USE YOUR GITHUB ACCESS TOKEN
-```
-
-- In the .env file create redirect variable for your GitHub callback URI.
-
-```bash
-REDIRECT_URI=http://localhost:3000/auth/github/callback
+GOOGLE_CLIENT_ID=USE YOUR GOOGLE CLIENT ID
+GOOGLE_CLIENT_SECRET=YOUR GOOGLE CLIENT SECRET HERE
 ```
 
 Create a new Twilio Sendgrid account.
