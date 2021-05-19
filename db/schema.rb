@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_07_171943) do
+ActiveRecord::Schema.define(version: 2021_05_19_163057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,20 @@ ActiveRecord::Schema.define(version: 2021_05_07_171943) do
     t.string "name"
     t.string "linkedin_handle"
     t.boolean "open_to_work", default: false
+  end
+
+  create_table "work_preferences", force: :cascade do |t|
+    t.boolean "willing_to_relocate"
+    t.boolean "open_to_remote_work"
+    t.boolean "open_to_local_work"
+    t.integer "current_zip_code"
+    t.integer "max_commute_time"
+    t.boolean "open_to_targeted_jobs"
+    t.boolean "open_to_new_company"
+    t.boolean "open_to_new_role_at_current"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

@@ -1,0 +1,2 @@
+class WorkPreferencesController < ApplicationController
+end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :work_preferences
   resources :nominations
   resources :users
 
