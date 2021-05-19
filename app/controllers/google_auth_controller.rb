@@ -14,6 +14,7 @@ class GoogleAuthController < ApplicationController
                 user.email = response["email"]
                 user.avatar = response["picture"]
                 user.jwt_token = encode_token({user_id: user.id})
+                user.work_preference = WorkPreference.create
             end
             user.jwt_token = encode_token({user_id: user.id})
             render json: UserSerializer.new(user).full_user_profile, status: :created

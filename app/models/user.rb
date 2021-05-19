@@ -3,7 +3,7 @@ class User < ApplicationRecord
     has_many :inbound_nominations, :class_name => 'Nomination', :foreign_key => 'nominated_id'
     has_one :work_preference
     
-    # validates :github_id, uniqueness: { case_sensitive: false }
+    before_create :create_work_preference_association
 
 
     def self.order_by_inbound_nominations(order)
@@ -20,5 +20,9 @@ class User < ApplicationRecord
 
     def find_past_co_worker_nominated_users
         User.joins(:inbound_nominations).group("users.id").where("nominator_id = ? AND active = ? AND co_worker = ?", self.id, true, false)
+    end
+
+    def create_work_preference_association
+        self.build_work_preference
     end
 end
