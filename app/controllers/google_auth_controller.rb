@@ -1,6 +1,7 @@
 class GoogleAuthController < ApplicationController
     skip_before_action :authorized
 
+
     def google_callback   
         url = "https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=#{google_params[:id_token]}"                  
         response = HTTParty.get(url)      
