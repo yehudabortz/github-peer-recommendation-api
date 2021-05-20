@@ -8,6 +8,6 @@ class WorkPreferencesController < ApplicationController
 
     private
     def work_pref_params
-        params.require(:work_preference).permit(preferenceObj: [:open_to_local_work, :open_to_remote_work, :willing_to_relocate])
+        params.require(:work_preference).permit(preferenceObj: [:open_to_local_work, :open_to_remote_work, :willing_to_relocate, :current_zip_code])
     end
 end
