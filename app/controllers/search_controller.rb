@@ -16,22 +16,26 @@ class SearchController < ApplicationController
             when 1
                 case key
                 when "open_to_work"
-                    results_count = User.where("#{key}" => "#{@value}").offset(offset).limit(display_count).count
-                    users = User.where("#{key}" => "#{@value}").offset(offset).limit(display_count).reverse_order
-                    break
+                  # binding.pry
+                  results_count = User.joins(:work_preference).group("users.id").where("open_to_work = ?", @value).offset(offset).limit(display_count).count.count
+                  users = User.joins(:work_preference).group("users.id").where("open_to_work = ?", @value).offset(offset).limit(display_count)
+                  break
                 when "inbound_nominations"
-                    convert_boolean_to_order_value
-                    results_count = User.order_by_inbound_nominations(@value).count.count
-                    users = User.order_by_inbound_nominations(@value).offset(offset).limit(display_count)
-                    break
-                    # binding.pry
+                  convert_boolean_to_order_value
+                  results_count = User.order_by_inbound_nominations(@order).count.count
+                  users = User.order_by_inbound_nominations(@order).offset(offset).limit(display_count)
+                  break
+                  # binding.pry
                 end
-            when 2
+              when 2
                 case key
                 when "open_to_work" || "inbound_nominations"
+                  # binding.pry
                     convert_boolean_to_order_value
-                    results_count =  User.order_by_inbound_nominations(@value).where("#{key}" => "#{@value}").offset(offset).limit(display_count).count.count
-                    users = User.order_by_inbound_nominations(@value).where("#{key}" => "#{@value}").offset(offset).limit(display_count)
+                    # results_count =  User.order_by_inbound_nominations(@value).where("#{key}" => "#{@value}").offset(offset).limit(display_count).count.count
+                    # users = User.order_by_inbound_nominations(@value).where("#{key}" => "#{@value}").offset(offset).limit(display_count)
+                    results_count =  User.joins(:work_preference, :inbound_nominations).group("users.id").where("open_to_work = ?", @value).order("count(nominated_id) #{@order}").offset(offset).limit(display_count).count.count
+                    users = User.joins(:work_preference, :inbound_nominations).group("users.id").where("open_to_work = ?", @value).order("count(nominated_id) #{@order}").offset(offset).limit(display_count)
                     break
                 end
             end
@@ -60,9 +64,11 @@ class SearchController < ApplicationController
   def convert_boolean_to_order_value
     case @value
     when true
-        @value = "DESC"
-    when false
-        @value = "ASC"
+        @order = "DESC"
+        # @value = false
+      when false
+        @order = "DESC"
+
     end
   end
 
