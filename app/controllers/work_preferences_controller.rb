@@ -3,7 +3,7 @@ class WorkPreferencesController < ApplicationController
         work_pref_params["preferenceObj"].each do |key, value|
             current_user.work_preference.update("#{key}"=> value)
         end
-        render json: {message: "Preferences Updated"}
+        render json: {message: "Preferences Updated", work_preference: work_pref_params["preferenceObj"]}
     end
 
     private
