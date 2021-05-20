@@ -10,7 +10,7 @@ class UserSerializer
             co_worker_nominated_users: @user.find_co_worker_nominated_users,
             past_co_worker_nominated_users: @user.find_past_co_worker_nominated_users,
             score: @user.inbound_nominations.count,
-            work_preferences: @user.work_preference}
+            work_preference: @user.work_preference}
     end
 
     private

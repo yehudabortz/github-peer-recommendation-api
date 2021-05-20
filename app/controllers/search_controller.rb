@@ -51,7 +51,8 @@ class SearchController < ApplicationController
   def show
     if admin?
       user = User.find_by(id: search_params[:id])
-      render json: user, include: [:outbound_nominations, :inbound_nominations]
+      render json: UserSerializer.new(user).full_user_profile
+      # render json: user, include: [:outbound_nominations, :inbound_nominations]
     end
   end
       

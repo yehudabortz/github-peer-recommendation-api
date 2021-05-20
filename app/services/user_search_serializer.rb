@@ -5,7 +5,7 @@ class UserSearchSerializer
     end
 
     def to_serialized_json
-        @users.as_json(:include => [:outbound_nominations, :inbound_nominations], :except => [:jwt_token])
+        @users.as_json(:include => [:outbound_nominations, :inbound_nominations, :work_preference], :except => [:jwt_token])
     end
 end
 
