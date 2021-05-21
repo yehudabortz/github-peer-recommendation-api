@@ -1,13 +1,13 @@
 class NominationsController < ApplicationController
 
     def create
+        split_handle =  nomination_params[:linkedin_handle].split("/")[-1]
         if current_user.find_co_worker_nominated_users.count.count >= 3 && nomination_params[:co_worker] == true 
             render json: {message: "You have already nominated the maximum number of Current Co-Worker nominations. To add another nomination, you must first remove an existing one."}
         elsif current_user.find_past_co_worker_nominated_users.count.count >= 3 && nomination_params[:co_worker] == false 
             render json: {message: "You have already nominated the maximum number of Past Co-Worker nominations. To add another nomination, you must first remove an existing one."}
         else
-            nominated = User.where(linkedin_handle: nomination_params[:linkedin_handle]).first_or_create do |nominated|
-                split_handle =  nomination_params[:linkedin_handle].split("/")[-1]
+            nominated = User.where(linkedin_handle: split_handle).first_or_create do |nominated|
                 nominated.linkedin_handle = split_handle
             end
             
