@@ -7,7 +7,8 @@ class NominationsController < ApplicationController
             render json: {message: "You have already nominated the maximum number of Past Co-Worker nominations. To add another nomination, you must first remove an existing one."}
         else
             nominated = User.where(linkedin_handle: nomination_params[:linkedin_handle]).first_or_create do |nominated|
-                nominated.linkedin_handle = nomination_params[:linkedin_handle]
+                split_handle =  nomination_params[:linkedin_handle].split("/")[-1]
+                nominated.linkedin_handle = split_handle
             end
             
             nomination = Nomination.new
