@@ -19,8 +19,12 @@ class NominationsController < ApplicationController
             if  !current_user.outbound_nominations.where(nominated_id: nominated.id).empty?
                 render json: {message: "Unable to nominate user"}
             else
+                # nomination.invite_code = encode_token({nomination_id: nomination.id})
+                # JWT.decode("eyJhbGciOiJIUzI1NiJ9.eyJub21pbmF0aW9uX2lkIjo1Mzh9.XyOPlw0L6XCQlUuDKvXofyJ62uKAgyor-syCj68QjHY",ENV['SECRET_KEY_BASE'], true, algorithm: 'HS256')
                 nomination.save
                 render json: {user: nominated, nomination: nomination}
+
+                # binding.pry
                 # UserInviteMailer.send_signup_email(nominated,  "#{ENV['DOMAIN']}/nominations/#{nomination.id}/invite").deliver_later
             end
         end
