@@ -16,7 +16,7 @@ class GoogleAuthController < ApplicationController
         if response["aud"] == ENV['GOOGLE_CLIENT_ID']
             user_id = JWT.decode(google_params[:invite_token],ENV['SECRET_KEY_BASE'], true, algorithm: 'HS256')[0]["user_invite_id"]
             user = User.find_by(id: user_id)
-            if (user.email.nil?)
+            if (user.email.nil? && !User.find_by(email: response["email"]))
                 user.update(
                     name: response["name"],
                     email: response["email"],
