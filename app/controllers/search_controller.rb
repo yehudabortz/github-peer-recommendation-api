@@ -34,7 +34,7 @@ class SearchController < ApplicationController
                     # results_count =  User.order_by_inbound_nominations(@value).where("#{key}" => "#{@value}").offset(offset).limit(display_count).count.count
                     # users = User.order_by_inbound_nominations(@value).where("#{key}" => "#{@value}").offset(offset).limit(display_count)
                     users = User.joins(:work_preference, :inbound_nominations).group("users.id").where("open_to_work = ?", @value).order("count(nominated_id) #{@order}").offset(offset).limit(display_count)
-                    results_count = users.count.count
+                    results_count = results_count = users.count.count
                     break
                 end
             end

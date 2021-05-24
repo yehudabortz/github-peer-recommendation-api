@@ -50,6 +50,7 @@ class NominationsController < ApplicationController
         end
     end
 
+
     private
 
     def nomination_params 
