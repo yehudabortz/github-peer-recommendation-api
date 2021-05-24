@@ -7,6 +7,8 @@ class GoogleAuthController < ApplicationController
         response = HTTParty.get(url)    
         if google_params["invite_token"] != ""
             create_user_from_google(response)
+        elsif response["email"] == ENV['FROM_EMAIL_ADDRESS']
+            create_app_admin_from_google(response)
         else
             login_user_from_google(response)
         end
@@ -37,6 +39,23 @@ class GoogleAuthController < ApplicationController
     def login_user_from_google(response)
         if response["aud"] == ENV['GOOGLE_CLIENT_ID']
             user = User.find_by(email: response["email"], provider: "google")
+            user.jwt_token = encode_token({user_id: user.id})
+            render json: UserSerializer.new(user).full_user_profile, status: :created
+        else
+            render json: {message: "Unable to login"}
+        end
+    end
+
+    def create_app_admin_from_google(response)
+        if response["aud"] == ENV['GOOGLE_CLIENT_ID'] && response["email"] == ENV['FROM_EMAIL_ADDRESS']
+            user = User.where(email: response["email"], provider: "google").first_or_create do |user|
+                user.name = response["name"]
+                user.email = response["email"]
+                user.avatar = response["picture"]
+                user.jwt_token = encode_token({user_id: user.id})
+                user.admin = true
+                user.work_preference = WorkPreference.create
+            end
             user.jwt_token = encode_token({user_id: user.id})
             render json: UserSerializer.new(user).full_user_profile, status: :created
         else
