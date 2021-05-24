@@ -23,9 +23,7 @@ class NominationsController < ApplicationController
                 # JWT.decode("eyJhbGciOiJIUzI1NiJ9.eyJub21pbmF0aW9uX2lkIjo1Mzh9.XyOPlw0L6XCQlUuDKvXofyJ62uKAgyor-syCj68QjHY",ENV['SECRET_KEY_BASE'], true, algorithm: 'HS256')
                 nomination.save
                 render json: {user: nominated, nomination: nomination}
-
-                # binding.pry
-                # UserInviteMailer.send_signup_email(nominated,  "#{ENV['DOMAIN']}/nominations/#{nomination.id}/invite").deliver_later
+                NewNominationNotificationMailer.send_notifiaction_email(nominated, JWT.encode({user_invite_id: nominated.id}, ENV['SECRET_KEY_BASE'])).deliver_later
             end
         end
     end
