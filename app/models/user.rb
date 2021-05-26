@@ -1,6 +1,10 @@
 class User < ApplicationRecord
     has_many :outbound_nominations, :class_name => 'Nomination', :foreign_key => 'nominator_id'
     has_many :inbound_nominations, :class_name => 'Nomination', :foreign_key => 'nominated_id'
+
+    has_many :outbound_invites, :class_name => 'Invite', :foreign_key => 'inviter_id'
+    has_many :inbound_invites, :class_name => 'Invite', :foreign_key => 'invited_id'
+
     has_one :work_preference
     
     before_create :create_work_preference_association

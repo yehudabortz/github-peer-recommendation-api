@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_24_141409) do
+ActiveRecord::Schema.define(version: 2021_05_26_144415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "invites", force: :cascade do |t|
+    t.string "invite_token"
+    t.bigint "inviter_id"
+    t.bigint "invited_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["invited_id"], name: "index_invites_on_invited_id"
+    t.index ["inviter_id"], name: "index_invites_on_inviter_id"
+  end
 
   create_table "nominations", force: :cascade do |t|
     t.bigint "nominator_id"
