@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_26_144415) do
+ActiveRecord::Schema.define(version: 2021_05_26_151059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2021_05_26_144415) do
     t.string "provider"
     t.string "name"
     t.string "linkedin_handle"
+    t.integer "generation"
   end
 
   create_table "work_preferences", force: :cascade do |t|
