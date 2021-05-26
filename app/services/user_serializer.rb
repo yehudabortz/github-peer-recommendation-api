@@ -13,7 +13,8 @@ class UserSerializer
             inbound_nominations: @user.inbound_nominations,
             score: @user.inbound_nominations.count,
             invite_token: @invite_token,
-            work_preference: @user.work_preference}
+            work_preference: @user.work_preference,
+        }
     end
 
     private

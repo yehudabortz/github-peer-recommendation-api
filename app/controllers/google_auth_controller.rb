@@ -16,8 +16,8 @@ class GoogleAuthController < ApplicationController
     
     def create_user_from_google(response)
         if response["aud"] == ENV['GOOGLE_CLIENT_ID']
-            user_id = JWT.decode(google_params[:invite_token],ENV['SECRET_KEY_BASE'], true, algorithm: 'HS256')[0]["user_invite_id"]
-            user = User.find_by(id: user_id)
+            decoded_token = JWT.decode(google_params[:invite_token],ENV['SECRET_KEY_BASE'], true, algorithm: 'HS256')
+            user = User.find_by(id: decoded_token[0]["user_invite_id"])
             if (user.email.nil? && !User.find_by(email: response["email"]))
                 user.update(
                     name: response["name"],
@@ -25,7 +25,11 @@ class GoogleAuthController < ApplicationController
                     avatar: response["picture"],
                     jwt_token: encode_token({user_id: user.id})
                 )
-                # user.work_preference = WorkPreference.create
+                if decoded_token[0]["outbound_invite_id"]
+                    invite = Invite.find_by(id: decoded_token[0]["outbound_invite_id"])
+                    user.inbound_invites << invite
+                    user.save
+                end
                 user.jwt_token = encode_token({user_id: user.id})
                 render json: UserSerializer.new(user).full_user_profile, status: :created
             else

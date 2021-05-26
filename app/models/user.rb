@@ -30,5 +30,11 @@ class User < ApplicationRecord
     def create_work_preference_association
         self.build_work_preference
     end
+
+
+
+    def self.split_linkedin_handle(url)
+        url.split("/")[-1]
+    end
     
 end
