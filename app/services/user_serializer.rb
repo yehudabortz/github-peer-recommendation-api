@@ -14,6 +14,7 @@ class UserSerializer
             score: @user.inbound_nominations.count,
             invite_token: @invite_token,
             work_preference: @user.work_preference,
+            outbound_invitations: {outbound_invite_token: "", remaining_invites: (10 - @user.outbound_invites.count)},
         }
     end
 

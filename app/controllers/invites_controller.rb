@@ -13,7 +13,7 @@ class InvitesController < ApplicationController
             current_user.save
             invited_user.save
             outbound_invite_token = JWT.encode({user_invite_id: invited_user.id,outbound_invite_id: invite.id}, ENV['SECRET_KEY_BASE'])
-            render json: {outbound_invite_token: outbound_invite_token}
+            render json: {outbound_invite_token: outbound_invite_token, remaining_invites: (10 - current_user.outbound_invites.count)}
         end 
 
     end
