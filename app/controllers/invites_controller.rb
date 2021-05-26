@@ -1,12 +1,12 @@
 class InvitesController < ApplicationController
 
     def create
-        invite = Invite.new
         linkedin_handle = User.split_linkedin_handle(invite_params["linkedin_handle"])
+        invite = Invite.new(linkedin_handle: linkedin_handle)
         user = User.find_by(linkedin_handle: linkedin_handle)
         if user
             render json: {message: "User cannot be invited."}
-        elsif user.outbound_invites.count >= 10
+        elsif current_user.outbound_invites.count >= 10
             render json: {message: "No invites remaining."}
         else
             invited_user = User.new(linkedin_handle: linkedin_handle)
