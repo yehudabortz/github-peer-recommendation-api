@@ -6,6 +6,8 @@ class InvitesController < ApplicationController
         user = User.find_by(linkedin_handle: linkedin_handle)
         if user
             render json: {message: "User cannot be invited."}
+        elsif user.outbound_invites.count >= 10
+            render json: {message: "No invites remaining."}
         else
             invited_user = User.new(linkedin_handle: linkedin_handle)
             invited_user.inbound_invites << invite
