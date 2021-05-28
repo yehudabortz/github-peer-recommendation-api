@@ -5,6 +5,7 @@ Peer Recommendation allows users to nominate current and past co-workers and vou
 Peer Recommendation API is a Ruby on Rails back-end for the [Peer Recommendation Client](https://github.com/yehudabortz/github-peer-recommendation-client) React front-end.
 
 - [Live Site](https://github-peer-recommendation-cli.herokuapp.com)
+- [Demo Video](https://drive.google.com/file/d/1cUDQedVj2yXPEsOZB3OzbqbBG74X7qiI/view?usp=sharing)
 
 ## Installation
 
